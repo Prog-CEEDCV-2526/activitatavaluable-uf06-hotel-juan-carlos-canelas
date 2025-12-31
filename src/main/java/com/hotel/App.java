@@ -172,18 +172,104 @@ public class App {
     public static String seleccionarTipusHabitacioDisponible() {
         System.out.println("\nTipus d'habitació disponibles:");
         //TODO:
-        return null;
+        
+    int disponiblesEstandard = disponibilitatHabitacions.get(TIPUS_ESTANDARD);
+    float preuEstandard = preusHabitacions.get(TIPUS_ESTANDARD);
+    //para mostrar el precio como esta en la salida de ejemplo hago un casting ()
+    System.out.println("1. Estàndard - " + disponiblesEstandard + " disponibles - " + (int)preuEstandard + "€");
+    
+    int disponiblesSuite = disponibilitatHabitacions.get(TIPUS_SUITE);
+    float preuSuite = preusHabitacions.get(TIPUS_SUITE);
+    System.out.println("2. Suite - " + disponiblesSuite + " disponibles - " + (int)preuSuite + "€");
+    
+    int disponiblesDeluxe = disponibilitatHabitacions.get(TIPUS_DELUXE);
+    float preuDeluxe = preusHabitacions.get(TIPUS_DELUXE);
+    System.out.println("3. Deluxe - " + disponiblesDeluxe + " disponibles - " + (int)preuDeluxe + "€");
+    
+    // Pido al usuario que seleccione 
+    String tipusSeleccionat = seleccionarTipusHabitacio();
+    
+    // Si seleccionó algo válido, verifico disponibilidad
+    if (tipusSeleccionat != null) {
+        int disponibles = disponibilitatHabitacions.get(tipusSeleccionat);
+        
+        if (disponibles > 0) {
+            return tipusSeleccionat;
+        } else {
+            return null;
+        }
+    }
+    
+    return null;
     }
 
     /**
      * Permet triar serveis addicionals (entre 0 i 4, sense repetir) i
      * els retorna en un ArrayList de String.
      */
-    public static ArrayList<String> seleccionarServeis() {
-        //TODO:
-
-        return null;
+  
+public static ArrayList<String> seleccionarServeis() {
+    // Creo un ArrayList donde guardare los servicios 
+    ArrayList<String> serveisSeleccionats = new ArrayList<String>();
+    
+    
+    System.out.println("\nServeis addicionals (0-4):");
+    System.out.println("0. Finalitzar");
+    System.out.println("1. Esmorzar (10€)");
+    System.out.println("2. Gimnàs (15€)");
+    System.out.println("3. Spa (20€)");
+    System.out.println("4. Piscina (25€)");
+    
+    // Variable para controlar si el usuario quiere seguir añadiendo servicios
+    String resposta = "s";
+    
+   
+    while (resposta.equals("s") && serveisSeleccionats.size() < 4) {
+        
+        
+        System.out.print("¿Vols afegir un servei? (s/n): ");
+        resposta = sc.next();
+        
+        if (resposta.equals("s")) {
+            int opcio = llegirEnter("Selecciona servei: ");
+            
+            // Verifico qué servicio eligió
+            String serveiElegit = null;
+            
+            if (opcio == 1) {
+                serveiElegit = SERVEI_ESMORZAR;
+            } else if (opcio == 2) {
+                serveiElegit = SERVEI_GIMNAS;
+            } else if (opcio == 3) {
+                serveiElegit = SERVEI_SPA;
+            } else if (opcio == 4) {
+                serveiElegit = SERVEI_PISCINA;
+            }
+            
+            // Si eligió un servicio válido
+            if (serveiElegit != null) {// Verifico si ya está en la lista para no repetir
+                
+                boolean esta = false;
+                for (int i = 0; i < serveisSeleccionats.size(); i++) {
+                    if (serveisSeleccionats.get(i).equals(serveiElegit)) {
+                        esta = true;
+                    }
+                }
+                
+                // Si no está repetido, lo añado
+                if (!esta) {
+                    serveisSeleccionats.add(serveiElegit);
+                    System.out.println("Servei afegit: " + serveiElegit);
+                } else {
+                    System.out.println("Aquest servei ja està seleccionat.");
+                }
+            }
+        }
     }
+    
+    
+    return serveisSeleccionats;
+}
 
     /**
      * Calcula i retorna el cost total de la reserva, incloent l'habitació,
