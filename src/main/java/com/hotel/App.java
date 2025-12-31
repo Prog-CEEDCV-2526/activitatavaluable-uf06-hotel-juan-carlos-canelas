@@ -267,7 +267,6 @@ public static ArrayList<String> seleccionarServeis() {
         }
     }
     
-    
     return serveisSeleccionats;
 }
 
@@ -297,10 +296,25 @@ public static ArrayList<String> seleccionarServeis() {
      * Genera i retorna un codi de reserva únic de tres xifres
      * (entre 100 i 999) que no estiga repetit.
      */
+  
     public static int generarCodiReserva() {
-        //TODO:
-        return 0;
+    // Variable para guardar el código generado
+        int codigo = 0;
+        boolean existe = true;
+    
+        while (existe) {
+            codigo = random.nextInt(900) + 100;// Genero un número aleatorio entre 100 y 999
+        
+        // Verifico si este código ya existe en el HashMap de reservas
+            if (reserves.containsKey(codigo)) {
+                existe = true; 
+            } else {
+                existe = false; 
+            }
     }
+    
+    return codigo;
+}
 
     /**
      * Permet alliberar una habitació utilitzant el codi de reserva
