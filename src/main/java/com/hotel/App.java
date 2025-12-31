@@ -40,7 +40,7 @@ public class App {
 
     // HashMaps dinàmics
     public static HashMap<String, Integer> disponibilitatHabitacions = new HashMap<String, Integer>();
-    public static HashMap<Integer, ArrayList<String>> reserves = new HashMap<Integer, ArrayList<String>>();
+    public static HashMap<Integer, ArrayList<String>> reserves = new HashMap<Integer, ArrayList<String>>();//importante
 
     // Generador de nombres aleatoris per als codis de reserva
     public static Random random = new Random();
@@ -111,6 +111,27 @@ public class App {
      */
     public static void gestionarOpcio(int opcio) {
        //TODO:
+       switch (opcio) {
+        case 1:
+            reservarHabitacio();
+            break;
+       case 2:
+            alliberarHabitacio();
+            break;
+        case 3:
+            consultarDisponibilitat();
+            break;
+       case 4:
+            obtindreReserva();
+            break;
+       case 5:
+            obtindreReservaPerTipus();
+            break;
+                      
+       default:
+            System.out.println("Opció incorrecta.");
+            break;
+       }
     }
 
     /**
@@ -185,6 +206,7 @@ public class App {
      */
     public static void consultarDisponibilitat() {
         // TODO: Mostrar lliures i ocupades
+        System.out.println("\n===== DISPONIBILITAT D'HABITACIONS =====");
     }
 
     /**
