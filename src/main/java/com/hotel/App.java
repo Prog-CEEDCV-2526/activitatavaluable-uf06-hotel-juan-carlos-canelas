@@ -150,7 +150,18 @@ public class App {
      */
     public static String seleccionarTipusHabitacio() {
         //TODO:
-        return null;
+        int opcio = llegirEnter("Seleccione tipo de habitación: "); // Pido al usuario que elija una opción numérica 1, 2 o 3
+
+        switch (opcio) {//verificare segun el numero introducido
+            case 1:
+               return TIPUS_ESTANDARD;
+            case 2:
+                return TIPUS_SUITE;
+            case 3:
+                return TIPUS_DELUXE;
+            default:
+                return null;
+    }
     }
 
     /**
@@ -180,7 +191,20 @@ public class App {
      */
     public static float calcularPreuTotal(String tipusHabitacio, ArrayList<String> serveisSeleccionats) {
         //TODO:
-        return 0;
+        // Obtengo el precio base de la habitación según el tipo elegido
+        float preuHabitacio = preusHabitacions.get(tipusHabitacio);
+        float subtotal = preuHabitacio;// mi subtotal empieza con el precio de la habitación
+         // Recorremos la lista de servicios seleccionados
+        for (int i = 0; i < serveisSeleccionats.size(); i++) {
+            String servei = serveisSeleccionats.get(i);
+            float preuServei = preusServeis.get(servei);
+            subtotal = subtotal + preuServei;
+        }
+
+        float iva = subtotal * IVA;//precio iva * por subtotal
+        float total = subtotal + iva; //precio total
+
+        return total;
     }
 
     /**
@@ -206,7 +230,16 @@ public class App {
      */
     public static void consultarDisponibilitat() {
         // TODO: Mostrar lliures i ocupades
-        System.out.println("\n===== DISPONIBILITAT D'HABITACIONS =====");
+
+        System.out.println("\n===== DISPONIBILITAT D'HABITACIONS =====");// Imprimo el título para que el usuario sepa qué opción está viendo
+            
+            System.out.println("Tipo\t\tLibres\tOcupadas");// Cabecera de la tabla: tipo de habitación, libres y ocupadas
+
+            // Muestro la disponibilidad del tipo Estándar, suit,deluxe
+            mostrarDisponibilitatTipus(TIPUS_ESTANDARD);
+            mostrarDisponibilitatTipus(TIPUS_SUITE);
+            mostrarDisponibilitatTipus(TIPUS_DELUXE);
+
     }
 
     /**
